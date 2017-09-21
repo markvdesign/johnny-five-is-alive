@@ -1,6 +1,8 @@
-const express = require('express'); // Load express
-const cors = require('cors');
+// Load express
+const express= require('express');
 const app = express();
+const http = require('http').Server(app);
+const serverIO = require('socket.io')(http);
 const axios = require('axios');
 const path = require('path');
 const five = require('johnny-five');
@@ -28,10 +30,34 @@ board.on("exit", function(){
 // =============================================================================
 const port = process.env.PORT || 8081;
 
+// SOCKET IO
+serverIO.on("connection", function(clientSocket) {
+    console.log('client has connected');
+
+    let status;
+
+    if(board.isReady) {
+        status = board.pins[53].value == 1 ? 'on' : 'off';
+        
+        let ledState = {
+            ledState: status
+        };
+    
+        serverIO.emit("led status", ledState);
+    }
+
+    clientSocket.on('toggle LED', function() {
+        led.toggle();
+    });
+
+    clientSocket.on("disconnect", function() {
+        console.log('client disconnected');
+    });
+});
+
+
 // MIDDLEWARE
 // ==================
-app.use(cors());
-app.options('*', cors());
 
 app.use(express.static(path.join(__dirname, 'www')));
 
@@ -44,5 +70,5 @@ app.use('/led', function(req, res){
 
 // START THE SERVER
 // =============================================================================
-app.listen(port);
+http.listen(port);
 console.info('The magic happens on port 8081');

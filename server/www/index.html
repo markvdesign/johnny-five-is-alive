@@ -7,13 +7,16 @@
     <title>Axios Test</title>
     <script src="https://unpkg.com/vue"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
 </head>
 <body>
     <h1>Axios Test</h1>
     <div id="app">
-        <h2> Led State: {{ buildStatus }}</h2>
-        <button v-on:click="getBuild">Get Build</button>
+        <h2> Led State: {{ ledStatus }}</h2>
+        <button v-on:click="getBuild">Get Status via web (Axios)</button>
+        <button v-on:click="ledStatusIO">Get Status via Socket IO</button>
     </div>
-    <script src="./client.js"></script>
+    <script src="./clientVue.js"></script>
+    <script src="./client.io.js"></script>
 </body>
 </html>

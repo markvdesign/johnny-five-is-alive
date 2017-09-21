@@ -15,19 +15,27 @@ const app = new Vue({
         failed: false
       }
     ],
-    buildStatus: ""
+    ledStatus: ""
   },
   methods: {
       getBuild : function() {
           axios.get("/led")
           .then((res) => {
-              console.log(res.data);
-              this.buildStatus = res.data.ledState;
+              this.ledStatus = res.data.ledState;
           })
           .catch((err) => {
-              console.log(err);
-              this.buildStatus = 'Error fetching build';
+              this.ledStatus = 'Error fetching LED status';
             });
+      },
+      ledStatusIO : function() {
+        if (this.ledStatus === 'on') {
+          this.ledStatus = 'off';
+        } else {
+          this.ledStatus = 'on';
+        }
+
+        socket.emit('toggle LED', this.ledStatus);
+        
       }
   }
 });
