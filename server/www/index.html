@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Axios Test</title>
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <h1>Axios Test</h1>
+    <div id="app">
+        <h2> Led State: {{ buildStatus }}</h2>
+        <button v-on:click="getBuild">Get Build</button>
+    </div>
+    <script src="./client.js"></script>
+</body>
+</html>
