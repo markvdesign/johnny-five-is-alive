@@ -1,0 +1,33 @@
+.light-bulb {
+    margin: 3rem;
+}
+
+.led-on {
+    fill: #e7ff00;
+    filter: url(#blurMe);
+}
+
+.toggle-button-wrapper {
+    position: relative;
+    width: 100px;
+    height: 50px;
+    background: lightgrey;
+}
+
+.toggle-button {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    padding-top: 8px;
+    left: 0;
+    background: darkgrey;
+    color: white;
+    font-size: 20px;
+    transition: all 0.2s ease;
+}
+
+.toggle-button-on {
+    left: 50%;
+    background: #6BDB6B;
+    transition: all 0.2s ease;
+}

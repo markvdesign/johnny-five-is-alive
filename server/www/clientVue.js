@@ -1,27 +1,20 @@
 const app = new Vue({
   el: "#app",
   data: {
-    projectName: [
-      {
-        url:
-          "https://teamcity.siama.com.au/app/rest/builds/buildType:(id:Works_CI)/status",
-        name: "Works CI",
-        failed: false
-      },
-      {
-        url:
-          "https://teamcity.siama.com.au/app/rest/builds/buildType:(id:Works_CI)/status",
-        name: "Works CI",
-        failed: false
-      }
-    ],
-    ledStatus: ""
+    ledStatus: "",
+    isActive: false
+  },
+  created: function() {
+    socket.on('led status', (state) => {
+      this.isActive = this.ledStatus === "on" ? true : false;
+    });
   },
   methods: {
       getBuild : function() {
           axios.get("/led")
           .then((res) => {
-              this.ledStatus = res.data.ledState;
+              this.ledStatus = res.data.ledState; 
+              this.isActive = res.data.ledState === "on" ? true : false; 
           })
           .catch((err) => {
               this.ledStatus = 'Error fetching LED status';
@@ -30,8 +23,10 @@ const app = new Vue({
       ledStatusIO : function() {
         if (this.ledStatus === 'on') {
           this.ledStatus = 'off';
+          this.isActive = false;
         } else {
           this.ledStatus = 'on';
+          this.isActive = true;
         }
 
         socket.emit('toggle LED', this.ledStatus);

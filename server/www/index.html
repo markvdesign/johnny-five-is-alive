@@ -1,22 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Axios Test</title>
+    <link rel="stylesheet" href="./bootstrap-yeti.css">
+    <link rel="stylesheet" href="./styles.css">
     <script src="https://unpkg.com/vue"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
 </head>
+
 <body>
-    <h1>Axios Test</h1>
-    <div id="app">
-        <h2> Led State: {{ ledStatus }}</h2>
-        <button v-on:click="getBuild">Get Status via web (Axios)</button>
-        <button v-on:click="ledStatusIO">Get Status via Socket IO</button>
+    <div class="container">
+        <h1>Axios Test</h1>
+        <div id="app">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">LED STATE - {{ ledStatus }}</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="col-lg-12">
+                                <div class="light-bulb">
+                                    <svg v-bind:class="{ 'led-on': isActive}" fill="#333" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                                        <title></title>
+                                        <g id="icomoon-ignore">
+                                        </g>
+                                        <filter id="blurMe">
+                                            <feGaussianBlur in="SourceGraphic" stdDeviation="7" />
+                                        </filter>
+                                        <path d="M229.952 613.504c25.248 16.32 54.432 27.36 90.048 26.496 35.552 0.864 64.8-10.176 90.048-26.496l-0.544-69.504h-179.008l-0.544 69.504zM406.304 512c0-139.424 148.16-187.136 137.056-326.016-6.976-87.616-66.336-185.92-223.36-185.92s-216.384 98.304-223.392 185.952c-11.104 138.848 137.088 186.56 137.088 325.984h172.608zM160 192c6.624-83.136 67.616-128 160-128 92.352 0 148.928 43.872 155.552 127.008 3.616 45.568-22.56 75.936-57.888 125.632-26.048 36.672-51.296 74.976-65.664 131.36h-64c-14.368-56.384-39.616-94.688-65.696-131.392-35.296-49.664-65.952-79.040-62.304-124.608z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="col-lg-10 col-lg-offset-1">
+                                <button class="btn btn-primary" v-on:click="getBuild">Get Status via web (Axios)</button>
+                                <hr>
+                                <p>Getting state and updating state with Socket.io</p>
+                                <div class="toggle-button-wrapper">
+                                    <button 
+                                    v-on:click='ledStatusIO'
+                                    v-bind:class="{'toggle-button-on': isActive}" 
+                                    class="btn toggle-button"
+                                    >{{ ledStatus }}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <script src="./clientVue.js"></script>
     <script src="./client.io.js"></script>
+    <script src="./clientVue.js"></script>
 </body>
+
 </html>
