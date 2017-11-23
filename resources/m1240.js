@@ -5,7 +5,8 @@ const sensorDataReadPin = 'A0';
 board.on('ready', () => {
     const m1240Sensor = new five.Proximity({
         controller: "MB1230", // Use this Controller name as MB1240 isn't recognised.
-        pin: sensorDataReadPin
+        pin: sensorDataReadPin,
+        freq: 1000 // this is in ms
       });
 
     m1240Sensor.on('data', (dataStream) => {

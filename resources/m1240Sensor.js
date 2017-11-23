@@ -8,12 +8,12 @@ board.on('ready', () => {
     const m1240Sensor = new five.Sensor({
         id: 1,
         pin: sensorDataReadPin,
-        freq: 25
+        freq: 1000
       });
     
     const led = new five.Led(ledPin);
 
-    m1240Sensor.on('data', (data) => {
+    m1240Sensor.on('change', (data) => {
 
         console.log(
             `
@@ -22,7 +22,6 @@ board.on('ready', () => {
                 ---------------
             `
         );
-
     });
 
     m1240Sensor.scale([0, 255]).on('data', (data) => {
