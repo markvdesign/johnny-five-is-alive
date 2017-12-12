@@ -8,7 +8,7 @@ board.on('ready', () => {
     const m1240Sensor = new five.Sensor({
         id: 1,
         pin: sensorDataReadPin,
-        freq: 1000
+        freq: 50
       });
     
     const led = new five.Led(ledPin);
@@ -25,7 +25,7 @@ board.on('ready', () => {
     });
 
     m1240Sensor.scale([0, 255]).on('data', (data) => {
-        led.brightness(data);
+        led.brightness(-data);
     })
 
 
